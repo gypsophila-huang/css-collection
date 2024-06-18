@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coupon</title>
+</head>
+
+<body>
+  <style>
+    body {
+      background: #939393;
+    }
+
+    .coupon {
+      width: 590px;
+      height: 370px;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .coupon-top,
+    .coupon-bottom {
+      background: #fff;
+    }
+
+    .coupon-top {
+      flex: 1;
+    }
+
+
+    .coupon-bottom {
+      height: 120px;
+      padding: 0 38px;
+    }
+
+    .coupon-middle {
+      height: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .coupon-middle div {
+      position: absolute;
+      left: 36px;
+      right: 36px;
+      top: 29px;
+      z-index: 1;
+      border-top: 1px dashed #e6e6e6;
+    }
+
+    .coupon-middle:before,
+    .coupon-middle:after {
+      content: '';
+      border: 300px solid #fff;
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      top: 50%;
+      margin-top: -330px;
+    }
+
+    .coupon-middle::before {
+      left: -330px;
+    }
+
+    .coupon-middle::after {
+      right: -330px;
+    }
+  </style>
+  <div class="coupon">
+    <div class="coupon-top"></div>
+    <div class="coupon-middle">
+      <div></div>
+    </div>
+    <div class="coupon-bottom"></div>
+  </div>
+</body>
+
+</html>
