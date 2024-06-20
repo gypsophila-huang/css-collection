@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tree</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0
+    }
+
+    html,
+    body,
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    canvas.width = window.innerWidth * window.devicePixelRatio;
+    canvas.height = window.innerHeight * window.devicePixelRatio;
+
+    const ctx = canvas.getContext('2d');
+    // 重置坐标系
+    ctx.translate(canvas.width / 2, canvas.height);
+    ctx.scale(1, -1);
+
+    ctx.beginPath();
+    ctx.rect(-canvas.width / 2, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'green';
+    ctx.fill();
+
+    function getRandom() {
+      return Math.random();
+    }
+
+    function getFlag() {
+      return getRandom() < 0.2;
+    }
+
+    function drawTree(v0, thick, len, angle) {
+      if (thick < 10) {
+        if (getFlag()) {
+          return;
+        }
+        ctx.beginPath();
+        ctx.arc(...v0, 20, 0, 2 * Math.PI);
+        ctx.fillStyle = getFlag() ? 'red' : '#fff';
+        ctx.fill();
+        return;
+      }
+
+      ctx.beginPath();
+      ctx.moveTo(...v0);
+      const v1 = [
+        v0[0] + len * Math.cos(Math.PI * angle / 180),
+        v0[1] + len * Math.sin(Math.PI * angle / 180),
+      ];
+      ctx.lineTo(...v1);
+      ctx.lineCap = 'round';
+      ctx.lineWidth = thick;
+      ctx.strokeStyle = '#333';
+      ctx.stroke();
+
+      setTimeout(() => {
+        drawTree(v1, thick * (0.6 + 0.2 * getRandom()), len * (0.6 + 0.2 * getRandom()), angle + Math.random() * 30);
+        drawTree(v1, thick * (0.6 + 0.2 * getRandom()), len * (0.6 + 0.2 * getRandom()), angle - Math.random() * 30);
+      }, 1000);
+    }
+    drawTree([0, 0], 60, 300, 90);
+  </script>
+</body>
+
+</html>
